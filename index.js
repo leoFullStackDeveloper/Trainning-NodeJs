@@ -1,3 +1,4 @@
+const { json } = require("express");
 const express = require("express");
 const app = express();
 
@@ -50,6 +51,15 @@ app.listen(3000,()=>{
     console.log("Server escuchando desde 3000");
 })
 
-app.get('/', (req,res,next)=>{
+
+
+// primer middleware
+function interceptar(req, res, next) {
+    res.json("Raiz interceptada, porque aplicamos primer middleware");
+}
+
+
+//aca aplicando el primer middleware
+app.get('/', interceptar, (req,res,next)=>{
     res.send("Todo bien, aca funcionando desde el Backend");
 })
